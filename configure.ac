@@ -17,7 +17,17 @@ AC_PROG_CXX
 # Checks for other features.
 LT_PREREQ([2.4.6])
 LT_INIT
-PKG_CHECK_MODULES([VM68K], [vm68k])
+AC_ARG_WITH([libvm68k],
+[AC_HELP_STRING([--with-libvm68k=DIR], [use libvm68k built in DIR [default=no]])],
+[if test -d "$withval"; then :; else
+  AC_MSG_ERROR([non-directory argument to --with-libvm68k])
+fi],
+[with_libvm68k=no])
+if test "$with_libvm68k" != "no"; then
+  LIBVM68K_CFLAGS="-I$with_libvm68k/libvm68k -I$with_libvm68k/libvm68kapi"
+  LIBVM68K_LIBS="-L$with_libvm68k/libvm68k -lvm68k"
+fi
+PKG_CHECK_MODULES([LIBVM68K], [vm68k])
 PKG_CHECK_MODULES([CPPUNIT], [cppunit],, [no_cppunit=yes])
 AM_CONDITIONAL([CPPUNIT], [test "$no_cppunit" != yes])
 # Configuration actions.
