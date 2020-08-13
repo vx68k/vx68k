@@ -4,7 +4,7 @@ ACLOCAL_AMFLAGS = -Im4
 
 EXTRA_DIST = README.md
 
-SUBDIRS =
+SUBDIRS = vx68k
 
 dist-hook: $(distdir)/SHA256SUMS
 	if test -n "$$GPG_USERNAME"; then \
