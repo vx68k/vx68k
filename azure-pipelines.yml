@@ -34,15 +34,15 @@ stages:
                 libcppunit-dev
             displayName: Install build dependencies
           - bash: |
+              autoreconf --verbose
+            displayName: Bootstrap
+          - bash: |
               git clone https://github.com/vx68k/libvm68k.git ../libvm68k &&
               cd ../libvm68k &&
               autoreconf &&
               ./configure --disable-static &&
               make
             displayName: Build libvm68k
-          - bash: |
-              autoreconf --verbose
-            displayName: Bootstrap
           - bash: |
               ./configure --with-libvm68k=`cd ../libvm68k && pwd` --disable-static &&
               echo "##vso[task.uploadfile]`pwd`/config.log"
