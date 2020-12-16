@@ -84,6 +84,8 @@ stages:
           - checkout: none
           - download: current
             artifact: dist
+          - download: current
+            artifact: libvm68k
           - bash: |
               gzip -dc '$(Agent.BuildDirectory)/dist/$(package.distName).tar.gz' |
               tar -x
