@@ -91,9 +91,10 @@ stages:
               tar -x
             displayName: Unpack
           - bash: |
-              git clone https://github.com/vx68k/libvm68k.git ../libvm68k &&
+              mkdir -p ../libvm68k &&
               cd ../libvm68k &&
-              autoreconf &&
+              gzip -dc '$(Agent.BuildDirectory)/libvm68k/libvm68k-*.tar.gz' |
+              tar -x --strip-components=1 &&
               ./configure --disable-static &&
               make &&
               sudo make install
