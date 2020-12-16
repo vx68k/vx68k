@@ -18,7 +18,7 @@ AC_PROG_CXX
 LT_PREREQ([2.4.6])
 LT_INIT
 AC_ARG_WITH([libvm68k],
-[AC_HELP_STRING([--with-libvm68k=DIR], [use libvm68k built in DIR [default=no]])],
+[AS_HELP_STRING([--with-libvm68k=DIR], [use libvm68k built in DIR [default=no]])],
 [if test -d "$withval"; then :; else
   AC_MSG_ERROR([non-directory argument to --with-libvm68k])
 fi],
