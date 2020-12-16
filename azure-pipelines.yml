@@ -44,7 +44,7 @@ stages:
               autoreconf --verbose
             displayName: Bootstrap
           - bash: |
-              ./configure --disable-static || exit $?
+              ./configure --with-libvm68k=`cd ../libvm68k && pwd` --disable-static && \
               echo "##vso[task.uploadfile]`pwd`/config.log"
             displayName: Configure
           - bash: |
