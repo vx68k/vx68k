@@ -84,6 +84,14 @@ stages:
               tar -x
             displayName: Unpack
           - bash: |
+              git clone https://github.com/vx68k/libvm68k.git ../libvm68k && \
+              cd ../libvm68k && \
+              autoreconf && \
+              ./configure --disable-static && \
+              make
+            displayName: Build libvm68k
+            workingDirectory: $(package.distName)
+          - bash: |
               $CC --version
               $CXX --version
               ./configure --prefix='$(Build.BinariesDirectory)' || exit $?
