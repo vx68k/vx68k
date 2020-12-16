@@ -88,7 +88,7 @@ stages:
             artifact: libvm68k
           - bash: |
               gzip -dc '$(Agent.BuildDirectory)'/dist/'$(package.distName)'.tar.gz |
-              tar -x
+              tar -x --strip-components=1
             displayName: Unpack
           - bash: |
               mkdir -p ../libvm68k &&
@@ -99,22 +99,19 @@ stages:
               make &&
               sudo make install
             displayName: Build and install libvm68k
-            workingDirectory: $(package.distName)
           - bash: |
               $CC --version
               $CXX --version
               ./configure --prefix='$(Build.BinariesDirectory)' &&
               echo "##vso[task.uploadfile]`pwd`/config.log"
             displayName: Configure
-            workingDirectory: $(package.distName)
           - bash: |
               make check
             displayName: Build
-            workingDirectory: $(package.distName)
           - bash: |
-              make install installcheck
+              make install &&
+              make installcheck
             displayName: Install
-            workingDirectory: $(package.distName)
   - stage: Release
     dependsOn: Default
     condition:
