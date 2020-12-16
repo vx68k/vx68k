@@ -88,8 +88,8 @@ stages:
               cd ../libvm68k && \
               autoreconf && \
               ./configure --disable-static && \
-              make
-            displayName: Build libvm68k
+              make install
+            displayName: Build and install libvm68k
             workingDirectory: $(package.distName)
           - bash: |
               $CC --version
