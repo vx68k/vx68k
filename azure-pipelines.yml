@@ -41,8 +41,13 @@ stages:
               cd ../libvm68k &&
               autoreconf &&
               ./configure --disable-static &&
-              make
+              make &&
+              make dist &&
+              mkdir -p _dist &&
+              mv libvm68k-*.* _dist/
             displayName: Build libvm68k
+          - publish: ../libvm68k/_dist
+            artifact: libvm68k
           - bash: |
               ./configure --with-libvm68k=`cd ../libvm68k && pwd` --disable-static &&
               echo "##vso[task.uploadfile]`pwd`/config.log"
