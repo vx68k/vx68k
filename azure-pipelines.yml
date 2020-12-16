@@ -87,13 +87,13 @@ stages:
           - download: current
             artifact: libvm68k
           - bash: |
-              gzip -dc '$(Agent.BuildDirectory)'/dist/'$(package.distName)'.tar.gz |
+              gzip -dc '$(Agent.BuildDirectory)'/dist/*.tar.gz |
               tar -x --strip-components=1
             displayName: Unpack
           - bash: |
               mkdir -p ../libvm68k &&
               cd ../libvm68k &&
-              gzip -dc '$(Agent.BuildDirectory)'/libvm68k/libvm68k-*.tar.gz |
+              gzip -dc '$(Agent.BuildDirectory)'/libvm68k/*.tar.gz |
               tar -x --strip-components=1 &&
               ./configure --disable-static &&
               make &&
